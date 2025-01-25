@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  python_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      ENVIRONMENT: "local"
+    networks:
+      - app-tier
+    # keep the container up and running, so we can exec into it
+    command:
+      tail -f /dev/null
+    volumes:
+      - ./:/app
+
+networks:
+  app-tier:
+    driver: bridge
